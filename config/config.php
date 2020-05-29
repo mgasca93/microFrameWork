@@ -1,8 +1,8 @@
 <?php
 
-define("URL","http://restaurante.test/");
-define("HOST","localhost");
-define("DBNAME","restaurante");
-define("USERNAME","root");
-define("PASSWORD","");
-define("CHARSET","utf8mb4");
+define("URL","YOUR DOMAIN");
+define("HOST","YOUR HOST");
+define("DBNAME","YOUR DBNAME");
+define("USERNAME","YOUR USERNAME");
+define("PASSWORD","YOUR PASSWORD DB");
+define("CHARSET","YOUR DB CODING");
