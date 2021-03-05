@@ -8,23 +8,42 @@ class Session{
         session_start();
     }
 
-    public function set($clave, $valor){
-        if(isset($_SESSION[$clave])){
-            return "ERROR 100: SESSION EXISTS.";
-        }else{
+    /**
+     * Esta funcion recibe un arreglo con los valores
+     * para establecer las session
+     */
+    public function set($arraySession){
+        foreach($arraySession as $clave => $valor){
             $_SESSION[$clave] = $valor;
         }
     }
 
-    public function get($clave){
-        if(isset($_SESSION[$clave])){
-            return $_SESSION[$clave];
+    /**
+     * Esta funcion recibe como argumento la clave de la session
+     * en caso de ser establecida retorn todas las sessiones existen
+     */
+    public function get($clave = ''){
+        if(strlen($clave) == 0){
+            return $_SESSION;
         }else{
-            return "ERROR 101: SESSION NOT EXISTS.";
+            return $_SESSION[$clave];
         }
     }        
 
-    //Destruimos todas las sessiones
+    /*
+    * Verifica si existen sessiones activas
+    */
+    public function sessionExists(){
+        if(isset($_SESSION) && count($_SESSION) > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    /*
+    * Destruimos todas las sessiones
+    */
     public function closeSession(){
         session_unset();
         session_destroy();
