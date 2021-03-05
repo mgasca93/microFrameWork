@@ -2,27 +2,40 @@
 
 class Controller{
 
-    public function __construct(){
+    public $view;
+    public $session;
+    public $model;
+
+    public function __construct()
+    {
         $this->view = new View();  
-        $this->Session = new Session();            
+        $this->session = new Session();
+        $this->model = $this->loadModel();
     }
 
-    public function loadModel($model){
-        $archivoModelo = "models/" . $model . "/" . $model . "Model.php";        
-        if(file_exists($archivoModelo)){        
+    /** 
+     * Si un controlador tiene un modelo, creo el objeto para acceder a
+     * su información en la base de datos.
+     */
+    final public function loadModel($model)
+    {
+        $archivoModelo = "models/" . $model . "/" . $model . "Model.php";
+        $modelo = array();
+        if(file_exists($archivoModelo))
+        {
             require_once $archivoModelo;
             $modelName = $model . "Model";
-            $this->model = new $modelName();
+            $modelo = new $modelName();
         }
+
+        return $modelo;
     }
 
+    /**
+     * Establezco la funcion render que me mostrara una vista
+     * si el controlador tiene una.
+     */
     final public function render($view){
         $this->view->render($view);
     }
-
-    public function redirect($controller){
-        $ruta = constant("URL") . $controller;
-        header("location: $ruta");
-    }
-        
 }
