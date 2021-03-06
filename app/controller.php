@@ -4,7 +4,7 @@ class Controller{
 
     public $view;
     public $session;
-    public $model;
+    // public $model; 
 
     public function __construct()
     {   
@@ -20,15 +20,12 @@ class Controller{
     public function loadModel($model)
     {
         $archivoModelo = "models/" . $model . "/" . $model . "Model.php";
-        $modelo = array();
         if(file_exists($archivoModelo))
         {
             require_once $archivoModelo;
             $modelName = $model . "Model";
-            $modelo = new $modelName();
+            $this->model = new $modelName();            
         }
-
-        $this->model = $modelo;
     }
 
     /**
