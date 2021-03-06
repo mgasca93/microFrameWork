@@ -7,17 +7,17 @@ class Controller{
     public $model;
 
     public function __construct()
-    {
+    {   
         $this->view = new View();  
         $this->session = new Session();
-        $this->model = $this->loadModel();
+        
     }
 
     /** 
      * Si un controlador tiene un modelo, creo el objeto para acceder a
      * su información en la base de datos.
      */
-    final public function loadModel($model)
+    public function loadModel($model)
     {
         $archivoModelo = "models/" . $model . "/" . $model . "Model.php";
         $modelo = array();
@@ -28,7 +28,7 @@ class Controller{
             $modelo = new $modelName();
         }
 
-        return $modelo;
+        $this->model = $modelo;
     }
 
     /**
