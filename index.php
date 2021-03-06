@@ -13,3 +13,4 @@ require_once "config/database.php";
 
 
 $app = new App();
+$app->run();
