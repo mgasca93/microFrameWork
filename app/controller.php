@@ -17,7 +17,7 @@ class Controller{
      * Si un controlador tiene un modelo, creo el objeto para acceder a
      * su información en la base de datos.
      */
-    public function loadModel($model)
+    final public function loadModel($model)
     {
         $archivoModelo = "models/" . $model . "/" . $model . "Model.php";
         if(file_exists($archivoModelo))
