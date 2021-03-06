@@ -2,39 +2,62 @@
 
 class App{
 
-    public function __construct(){
-        $url = empty($_GET['url']) ? "welcome" : $_GET['url'];                
-        $url = rtrim($url,"/");
-        $url = explode("/",$url);
+    private $url;
+    private $controller;
+
+    public function __construct($flagDebug = false){
         
-        
-        $archivoController = "controllers/" . $url[0] . "/" . $url[0] . "Controller.php";        
+        $this->debug($flagDebug);
+
+        $this->url = empty($_GET['url']) ? "welcome" : $_GET['url'];                
+        $this->url = rtrim($this->url,"/");
+        $this->url = explode("/",$this->url);
+               
+    }
+
+    /**
+     * Me permite gestionar el modo debug para la
+     */
+    public function debug($flag){
+        if($flag){
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+        }
+    }
+
+    /**
+     * Punto de entrada de la aplicacion
+     */
+    final public function run(){
+         
+        $archivoController = "controllers/" . $this->url[0] . "/" . $this->url[0] . "Controller.php";        
         
         if(file_exists($archivoController)){
             require_once $archivoController;
-            $controller = new $url[0]();
-            $controller->loadModel($url[0]);
+            $this->controller = new $this->url[0]();
+            $this->controller->loadModel($this->url[0]);
             
-            $nparams = sizeof($url);
+            $nparams = sizeof($this->url);
             
             if($nparams > 1){                
                 if($nparams > 2){
 
                     $params = [];
                     for($i = 2; $i < $nparams; $i++){
-                        array_push($params, $url[$i]);
+                        array_push($params, $this->url[$i]);
                     }
-                    $controller->{$url[1]}($params);
+                    $this->controller->{$this->url[1]}($params);
                 }else{
-                    $controller->{$url[1]}();
+                    $this->controller->{$this->url[1]}();
                 }                
             }else{
-                $controller->render($url[0]);
+                $this->controller->render($this->url[0]);
             }
         }else{
             require_once "controllers/404/errorController.php";
-            $controller = new ManagerError();
-            $controller->render("404");
+            $this->controller = new ManagerError();
+            $this->controller->render("404");
         }
     }
 }
