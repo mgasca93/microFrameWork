@@ -5,26 +5,13 @@ class App{
     private $url;
     private $controller;
 
-    public function __construct($flagDebug = false){
-        
-        $this->debug($flagDebug);
+    public function __construct(){        
 
         $this->url = empty($_GET['url']) ? "welcome" : $_GET['url'];                
         $this->url = rtrim($this->url,"/");
         $this->url = explode("/",$this->url);
                
-    }
-
-    /**
-     * Me permite gestionar el modo debug para la
-     */
-    public function debug($flag){
-        if($flag){
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
-        }
-    }
+    }    
 
     /**
      * Punto de entrada de la aplicacion
