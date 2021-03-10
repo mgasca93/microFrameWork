@@ -6,11 +6,10 @@ class Controller{
     public $session;
     // public $model; 
 
-    public function __construct()
+    public function __construct($pageTitle)
     {   
-        $this->view = new View();  
+        $this->view = new View($pageTitle);  
         $this->session = new Session();
-        
     }
 
     /** 
