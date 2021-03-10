@@ -22,7 +22,7 @@ class App{
         
         if(file_exists($archivoController)){
             require_once $archivoController;
-            $this->controller = new $this->url[0]();
+            $this->controller = new $this->url[0]($this->url[0]);
             $this->controller->loadModel($this->url[0]);
             
             $nparams = sizeof($this->url);
@@ -43,7 +43,7 @@ class App{
             }
         }else{
             require_once "controllers/404/errorController.php";
-            $this->controller = new ManagerError();
+            $this->controller = new ManagerError('404 Page not found');
             $this->controller->render("404");
         }
     }
