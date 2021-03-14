@@ -8,7 +8,8 @@ class Model{
 
     public function __construct($modelactive){
         $this->modelName = $modelactive;
-        $this->db = new DB();         
+        $this->db = new DB();
+        $this->modelObject = false;         
     }
     
      /** 
@@ -31,15 +32,14 @@ class Model{
      * Si el controlador activo tiene
      * un modelo, retorno el objeto modelo 
      */
-    public function getModel(){  
-        $modelo = false;    
+    public function getModel(){    
         if($this->modelExists())
         {
             require_once $this->fileModel;
 
             $modelName = $this->modelName . "Model";            
-            $modelo = new $modelName($this->modelName);
+            $this->modelObject = new $modelName($this->modelName);
         }
-        return $modelo;
+        return $this->modelObject;
     }
 }
