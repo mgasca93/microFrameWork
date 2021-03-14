@@ -4,27 +4,20 @@ class Controller{
 
     public $view;
     public $session;
-    // public $model; 
+    public $model; 
+    public $modelActive;
 
-    public function __construct($pageTitle)
+    public function __construct($activeController)
     {   
-        $this->view = new View($pageTitle);  
+        $this->view = new View($activeController);  
+        $this->model = new Model($activeController);
         $this->session = new Session();
-    }
 
-    /** 
-     * Si un controlador tiene un modelo, creo el objeto para acceder a
-     * su información en la base de datos.
-     */
-    final public function loadModel($model)
-    {
-        $archivoModelo = "models/" . $model . "/" . $model . "Model.php";
-        if(file_exists($archivoModelo))
-        {
-            require_once $archivoModelo;
-            $modelName = $model . "Model";
-            $this->model = new $modelName();            
-        }
+        /**
+         * Verifico si existe un modelo para el controlador
+         * activo y lo cargo a la interfaz
+         */
+        $this->modelActive = $this->model->getModel();    
     }
 
     /**
@@ -34,4 +27,5 @@ class Controller{
     final public function render($view){
         $this->view->render($view);
     }
+
 }
