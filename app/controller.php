@@ -6,6 +6,7 @@ class Controller{
     public $session;
     public $model; 
     public $modelActive;
+    public $exceptionCaptured;
 
     public function __construct($activeController)
     {   
@@ -24,8 +25,16 @@ class Controller{
      * Establezco la funcion render que me mostrara una vista
      * si el controlador tiene una.
      */
-    final public function render($view){
-        $this->view->render($view);
+    final public function index($view){
+        $this->view->render($view, $this->exceptionCaptured);
     }
 
+    /**
+     * Capturo la exception que se pudo
+     * presentar en tiempo de ejcución y la muestro por pantalla
+     */
+    public function getException(string $exception){
+        $this->exceptionCaptured = 'A runtime error was caught: ' . $exception;
+        $this->index('exception');       
+    }
 }
