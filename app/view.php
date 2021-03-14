@@ -2,13 +2,16 @@
 class View{
 
     public $pageTitle;
-    
+    public $errorView;
+
     public function __construct($page){
        $this->pageTitle = $this->setTitle($page);
     }
 
-    public function render($view){
+    public function render($view, $error = ''){
         $archivoView = "views/" . $view . "/index.php";
+        $this->errorView = $error;
+    
         if(file_exists($archivoView)){
             require_once $archivoView;
         }
