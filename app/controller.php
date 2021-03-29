@@ -25,8 +25,8 @@ class Controller{
      * Establezco la funcion render que me mostrara una vista
      * si el controlador tiene una.
      */
-    final public function index($view){
-        $this->view->render($view, $this->exceptionCaptured);
+    public function index(String $view, Array $data = [], String $exception = ''){
+        $this->view->render($view, $data, $exception);
     }
 
     /**
@@ -35,6 +35,6 @@ class Controller{
      */
     public function getException(string $exception){
         $this->exceptionCaptured = 'A runtime error was caught: ' . $exception;
-        $this->index('exception');       
+        $this->index('exception', [], $this->exceptionCaptured);       
     }
 }

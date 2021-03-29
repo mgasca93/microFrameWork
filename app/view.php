@@ -8,10 +8,22 @@ class View{
        $this->pageTitle = $this->setTitle($page);
     }
 
-    public function render($view, $error = ''){
+    public function render($view, $data, $error = ''){
         $archivoView = "views/" . $view . "/index.php";
         $this->errorView = $error;
-    
+        
+        /**
+         * Creo las variables que se pasaron ala vista
+         * desde el array data
+         */
+        if(count($data) > 0 && !empty($data))
+        {
+            foreach($data as $var => $value)
+            {
+                $$var = $value;
+            }
+            var_dump($data);
+        }
         if(file_exists($archivoView)){
             require_once $archivoView;
         }
