@@ -21,8 +21,7 @@ class View{
             foreach($data as $var => $value)
             {
                 $$var = $value;
-            }
-            var_dump($data);
+            }        
         }
         if(file_exists($archivoView)){
             require_once $archivoView;
