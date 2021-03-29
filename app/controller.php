@@ -4,35 +4,37 @@ class Controller{
 
     public $view;
     public $session;
-    // public $model; 
+    public $model; 
+    public $modelActive;
+    public $exceptionCaptured;
 
-    public function __construct()
+    public function __construct($activeController)
     {   
-        $this->view = new View();  
+        $this->view = new View($activeController);  
+        $this->model = new Model($activeController);
         $this->session = new Session();
-        
-    }
 
-    /** 
-     * Si un controlador tiene un modelo, creo el objeto para acceder a
-     * su información en la base de datos.
-     */
-    final public function loadModel($model)
-    {
-        $archivoModelo = "models/" . $model . "/" . $model . "Model.php";
-        if(file_exists($archivoModelo))
-        {
-            require_once $archivoModelo;
-            $modelName = $model . "Model";
-            $this->model = new $modelName();            
-        }
+        /**
+         * Verifico si existe un modelo para el controlador
+         * activo y lo cargo a la interfaz
+         */
+        $this->modelActive = $this->model->getModel();    
     }
 
     /**
      * Establezco la funcion render que me mostrara una vista
      * si el controlador tiene una.
      */
-    final public function render($view){
-        $this->view->render($view);
+    public function index(String $view, Array $data = [], String $exception = ''){
+        $this->view->render($view, $data, $exception);
+    }
+
+    /**
+     * Capturo la exception que se pudo
+     * presentar en tiempo de ejcución y la muestro por pantalla
+     */
+    public function getException(string $exception){
+        $this->exceptionCaptured = 'A runtime error was caught: ' . $exception;
+        $this->index('exception', [], $this->exceptionCaptured);       
     }
 }

@@ -11,12 +11,10 @@
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-5">
-                <h1 class="display-1 text-center font-weight-light mt-5">Welcome</h1>
-                <p class="text-center font-weight-light">You are using the miniFrameWork</p>                
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-5 text-center">
-                <a href="https://github.com/mgasca93/microFrameWork" class="btn btn-xs btn-outline-dark"><i class="fab fa-github-alt"></i> Repository</a>                
-            </div>
+                <h1 class="display-1 text-center font-weight-light mt-5 text-warning"><i class="fas fa-radiation"></i></h1>
+                <h1 class="display-5 text-center font-weight-light mt-5">Error Manager</h1>
+                <p class="text-center font-weight-light lead mt-5"><?= $this->errorView; ?></p>
+            </div>            
         </div>
     </div>
     <div id="footer" class="fixed-bottom bg-dark p-2">        

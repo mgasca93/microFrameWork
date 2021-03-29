@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <title>404 Page not found</title>
+    <link rel="stylesheet" href="<?= constant('URL');?>node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <title><?= $this->pageTitle; ?></title>
 </head>
 <body class="bg-light">
     <div class="container-fluid mt-5">
@@ -20,6 +20,6 @@
     <div id="footer" class="fixed-bottom bg-dark p-2">
         <p class="text-center text-light"><small class="text-light">This repository is created by <a href="https://github.com/mgasca93" class="text-light" target="_blank">Mario Gasca</a></small></p>
     </div>    
-    <script defer src="node_modules\@fortawesome\fontawesome-free\js\all.js"></script>
+    <script defer src="<?= constant('URL');?>node_modules\@fortawesome\fontawesome-free\js\all.js"></script>
 </body>
 </html>
